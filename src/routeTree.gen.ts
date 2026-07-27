@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DebtsRouteImport } from './routes/debts'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TripsTripIdIndexRouteImport } from './routes/trips.$tripId.index'
 import { Route as TripsTripIdSettlementRouteImport } from './routes/trips.$tripId.settlement'
 import { Route as TripsTripIdNewExpenseRouteImport } from './routes/trips.$tripId.new-expense'
 
+const DebtsRoute = DebtsRouteImport.update({
+  id: '/debts',
+  path: '/debts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -44,6 +50,7 @@ const TripsTripIdNewExpenseRoute = TripsTripIdNewExpenseRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
   '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId/': typeof TripsTripIdIndexRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
   '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId': typeof TripsTripIdIndexRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
   '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId/': typeof TripsTripIdIndexRoute
@@ -68,6 +77,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/debts'
     | '/trips/$tripId/new-expense'
     | '/trips/$tripId/settlement'
     | '/trips/$tripId/'
@@ -75,6 +85,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/debts'
     | '/trips/$tripId/new-expense'
     | '/trips/$tripId/settlement'
     | '/trips/$tripId'
@@ -82,6 +93,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/debts'
     | '/trips/$tripId/new-expense'
     | '/trips/$tripId/settlement'
     | '/trips/$tripId/'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  DebtsRoute: typeof DebtsRoute
   TripsTripIdNewExpenseRoute: typeof TripsTripIdNewExpenseRoute
   TripsTripIdSettlementRoute: typeof TripsTripIdSettlementRoute
   TripsTripIdIndexRoute: typeof TripsTripIdIndexRoute
@@ -97,6 +110,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/debts': {
+      id: '/debts'
+      path: '/debts'
+      fullPath: '/debts'
+      preLoaderRoute: typeof DebtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -138,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  DebtsRoute: DebtsRoute,
   TripsTripIdNewExpenseRoute: TripsTripIdNewExpenseRoute,
   TripsTripIdSettlementRoute: TripsTripIdSettlementRoute,
   TripsTripIdIndexRoute: TripsTripIdIndexRoute,
