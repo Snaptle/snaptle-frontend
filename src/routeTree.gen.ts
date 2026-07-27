@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TripsTripIdIndexRouteImport } from './routes/trips.$tripId.index'
+import { Route as TripsTripIdSettlementRouteImport } from './routes/trips.$tripId.settlement'
 import { Route as TripsTripIdNewExpenseRouteImport } from './routes/trips.$tripId.new-expense'
 
 const AuthRoute = AuthRouteImport.update({
@@ -29,6 +30,11 @@ const TripsTripIdIndexRoute = TripsTripIdIndexRouteImport.update({
   path: '/trips/$tripId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TripsTripIdSettlementRoute = TripsTripIdSettlementRouteImport.update({
+  id: '/trips/$tripId/settlement',
+  path: '/trips/$tripId/settlement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TripsTripIdNewExpenseRoute = TripsTripIdNewExpenseRouteImport.update({
   id: '/trips/$tripId/new-expense',
   path: '/trips/$tripId/new-expense',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesById {
@@ -52,18 +60,30 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
   '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/trips/$tripId/new-expense' | '/trips/$tripId/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
+    | '/trips/$tripId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/trips/$tripId/new-expense' | '/trips/$tripId'
+  to:
+    | '/'
+    | '/auth'
+    | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
+    | '/trips/$tripId'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
     | '/trips/$tripId/'
   fileRoutesById: FileRoutesById
 }
@@ -71,6 +91,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   TripsTripIdNewExpenseRoute: typeof TripsTripIdNewExpenseRoute
+  TripsTripIdSettlementRoute: typeof TripsTripIdSettlementRoute
   TripsTripIdIndexRoute: typeof TripsTripIdIndexRoute
 }
 
@@ -97,6 +118,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TripsTripIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trips/$tripId/settlement': {
+      id: '/trips/$tripId/settlement'
+      path: '/trips/$tripId/settlement'
+      fullPath: '/trips/$tripId/settlement'
+      preLoaderRoute: typeof TripsTripIdSettlementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trips/$tripId/new-expense': {
       id: '/trips/$tripId/new-expense'
       path: '/trips/$tripId/new-expense'
@@ -111,6 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   TripsTripIdNewExpenseRoute: TripsTripIdNewExpenseRoute,
+  TripsTripIdSettlementRoute: TripsTripIdSettlementRoute,
   TripsTripIdIndexRoute: TripsTripIdIndexRoute,
 }
 export const routeTree = rootRouteImport
