@@ -9,38 +9,121 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DebtsRouteImport } from './routes/debts'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TripsTripIdIndexRouteImport } from './routes/trips.$tripId.index'
+import { Route as TripsTripIdSettlementRouteImport } from './routes/trips.$tripId.settlement'
+import { Route as TripsTripIdNewExpenseRouteImport } from './routes/trips.$tripId.new-expense'
 
+const DebtsRoute = DebtsRouteImport.update({
+  id: '/debts',
+  path: '/debts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TripsTripIdIndexRoute = TripsTripIdIndexRouteImport.update({
+  id: '/trips/$tripId/',
+  path: '/trips/$tripId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsTripIdSettlementRoute = TripsTripIdSettlementRouteImport.update({
+  id: '/trips/$tripId/settlement',
+  path: '/trips/$tripId/settlement',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TripsTripIdNewExpenseRoute = TripsTripIdNewExpenseRouteImport.update({
+  id: '/trips/$tripId/new-expense',
+  path: '/trips/$tripId/new-expense',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
+  '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
+  '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
+  '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
+  '/trips/$tripId': typeof TripsTripIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/debts': typeof DebtsRoute
+  '/trips/$tripId/new-expense': typeof TripsTripIdNewExpenseRoute
+  '/trips/$tripId/settlement': typeof TripsTripIdSettlementRoute
+  '/trips/$tripId/': typeof TripsTripIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/debts'
+    | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
+    | '/trips/$tripId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/debts'
+    | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
+    | '/trips/$tripId'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/debts'
+    | '/trips/$tripId/new-expense'
+    | '/trips/$tripId/settlement'
+    | '/trips/$tripId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
+  DebtsRoute: typeof DebtsRoute
+  TripsTripIdNewExpenseRoute: typeof TripsTripIdNewExpenseRoute
+  TripsTripIdSettlementRoute: typeof TripsTripIdSettlementRoute
+  TripsTripIdIndexRoute: typeof TripsTripIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/debts': {
+      id: '/debts'
+      path: '/debts'
+      fullPath: '/debts'
+      preLoaderRoute: typeof DebtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +131,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trips/$tripId/': {
+      id: '/trips/$tripId/'
+      path: '/trips/$tripId'
+      fullPath: '/trips/$tripId/'
+      preLoaderRoute: typeof TripsTripIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips/$tripId/settlement': {
+      id: '/trips/$tripId/settlement'
+      path: '/trips/$tripId/settlement'
+      fullPath: '/trips/$tripId/settlement'
+      preLoaderRoute: typeof TripsTripIdSettlementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trips/$tripId/new-expense': {
+      id: '/trips/$tripId/new-expense'
+      path: '/trips/$tripId/new-expense'
+      fullPath: '/trips/$tripId/new-expense'
+      preLoaderRoute: typeof TripsTripIdNewExpenseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
+  DebtsRoute: DebtsRoute,
+  TripsTripIdNewExpenseRoute: TripsTripIdNewExpenseRoute,
+  TripsTripIdSettlementRoute: TripsTripIdSettlementRoute,
+  TripsTripIdIndexRoute: TripsTripIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
