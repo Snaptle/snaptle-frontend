@@ -88,7 +88,7 @@ function SettlementPage() {
           {balances.map((b) => (
             <div
               key={b.member.id}
-              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-border bg-card p-3.5 shadow-card"
+              className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-[1.5rem] border border-border/70 bg-card p-4 shadow-card"
             >
               <MemberAvatar name={b.member.name} tone={b.member.tone} size="lg" />
               <div className="min-w-0">
@@ -155,7 +155,7 @@ function SettlementPage() {
 
         <div className="mt-8 grid gap-2">
           <Button
-            className="h-12 rounded-2xl bg-sunset text-base font-bold shadow-float hover:opacity-95"
+            className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
             onClick={() => toast.success("정산 결과를 공유했어요")}
           >
             <Share2 className="h-5 w-5" />
@@ -163,7 +163,7 @@ function SettlementPage() {
           </Button>
           <Button
             variant="outline"
-            className="h-12 rounded-2xl border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
+            className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
             onClick={() => toast.success("모든 송금을 완료 처리했어요")}
           >
             <TicketCheck className="h-5 w-5" />

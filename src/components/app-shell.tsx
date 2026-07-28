@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { to: "/", label: "내 여행", icon: Plane },
-  { to: "/debts", label: "개인 채무", icon: Wallet },
+  { to: "/debts", label: "밀린 정산", icon: Wallet },
 ] as const;
 
 export function AppShell({

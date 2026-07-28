@@ -71,11 +71,13 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 1.25rem;
 
-  --background: oklch(0.985 0.011 62);
+  /* Bento-inspired warm cream base */
+  --background: oklch(0.977 0.016 78);
   --foreground: oklch(0.26 0.035 240);
-  --card: oklch(1 0 0);
+  --card: oklch(0.998 0.004 80);
+
   --card-foreground: oklch(0.26 0.035 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.26 0.035 240);
@@ -132,9 +134,18 @@
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.78 0.15 55), oklch(0.685 0.175 32));
   --gradient-trust: linear-gradient(140deg, oklch(0.38 0.05 222), oklch(0.29 0.04 235));
-  --shadow-card: 0 1px 2px oklch(0.33 0.043 227.5 / 0.05), 0 12px 28px -18px oklch(0.33 0.043 227.5 / 0.35);
-  --shadow-float: 0 12px 32px -8px oklch(0.724 0.155 39.5 / 0.45);
+  --shadow-card:
+    0 1px 1px oklch(0.33 0.043 227.5 / 0.04),
+    0 6px 16px -10px oklch(0.33 0.043 227.5 / 0.22),
+    0 24px 48px -24px oklch(0.33 0.043 227.5 / 0.28);
+  --shadow-lift:
+    0 2px 3px oklch(0.33 0.043 227.5 / 0.05),
+    0 12px 28px -14px oklch(0.33 0.043 227.5 / 0.28),
+    0 36px 64px -30px oklch(0.33 0.043 227.5 / 0.32);
+  --shadow-float: 0 14px 38px -10px oklch(0.724 0.155 39.5 / 0.42);
+  --shadow-pill: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 4px 10px -6px oklch(0.33 0.043 227.5 / 0.45);
 }
+
 
 .dark {
   --background: oklch(0.205 0.028 235);
@@ -188,8 +199,10 @@
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.72 0.14 55), oklch(0.6 0.16 32));
   --gradient-trust: linear-gradient(140deg, oklch(0.33 0.04 222), oklch(0.25 0.035 235));
-  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.25), 0 12px 28px -18px oklch(0 0 0 / 0.6);
-  --shadow-float: 0 12px 32px -8px oklch(0.742 0.152 40 / 0.45);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.25), 0 18px 40px -24px oklch(0 0 0 / 0.65);
+  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.3), 0 30px 60px -28px oklch(0 0 0 / 0.7);
+  --shadow-float: 0 14px 38px -10px oklch(0.742 0.152 40 / 0.45);
+  --shadow-pill: 0 1px 0 oklch(1 0 0 / 0.08) inset, 0 4px 10px -6px oklch(0 0 0 / 0.6);
 }
 
 @utility bg-sunset {
@@ -204,9 +217,36 @@
   box-shadow: var(--shadow-card);
 }
 
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
 @utility shadow-float {
   box-shadow: var(--shadow-float);
 }
+
+/* Bento풍 알약 뱃지 */
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-pill);
+}
+
+/* 손으로 정리한 듯 살짝 기울어진 카드 */
+@utility tilt-a {
+  transform: rotate(-0.5deg);
+}
+
+@utility tilt-b {
+  transform: rotate(0.45deg);
+}
+
 
 /* 금액 표기: 항상 크고 명확하게 */
 @utility amount {
@@ -270,26 +310,51 @@
     justify-content: center;
     padding: 2.5rem 1rem;
     background:
-      radial-gradient(1100px 620px at 18% 8%, oklch(0.78 0.15 55 / 0.28), transparent 60%),
-      radial-gradient(900px 620px at 88% 96%, oklch(0.556 0.073 210 / 0.35), transparent 62%),
-      linear-gradient(150deg, oklch(0.24 0.03 233), oklch(0.33 0.043 227.5));
+      radial-gradient(1200px 700px at 16% 4%, oklch(0.78 0.15 55 / 0.34), transparent 62%),
+      radial-gradient(950px 680px at 90% 98%, oklch(0.556 0.073 210 / 0.38), transparent 64%),
+      linear-gradient(150deg, oklch(0.23 0.03 233), oklch(0.34 0.045 227.5));
   }
 
   .device-shell {
+    position: relative;
     padding: 0.55rem;
     border-radius: 3.35rem;
-    background: linear-gradient(160deg, oklch(0.42 0.02 240), oklch(0.2 0.02 240));
+    background: linear-gradient(160deg, oklch(0.46 0.02 240), oklch(0.19 0.02 240));
     box-shadow:
-      0 2px 0 oklch(1 0 0 / 0.14) inset,
-      0 40px 90px -25px oklch(0 0 0 / 0.7),
-      0 18px 40px -18px oklch(0.724 0.155 39.5 / 0.4);
+      0 2px 0 oklch(1 0 0 / 0.16) inset,
+      0 0 0 1px oklch(0 0 0 / 0.5),
+      0 50px 110px -30px oklch(0 0 0 / 0.75),
+      0 22px 50px -20px oklch(0.724 0.155 39.5 / 0.42);
+  }
+
+  /* 물리 버튼 (장식) */
+  .device-shell::before,
+  .device-shell::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, oklch(0.5 0.02 240), oklch(0.28 0.02 240));
+  }
+
+  .device-shell::before {
+    left: -3px;
+    top: 9rem;
+    height: 4.5rem;
+  }
+
+  .device-shell::after {
+    right: -3px;
+    top: 8rem;
+    height: 7rem;
   }
 
   .device-bezel {
     padding: 0.22rem;
     border-radius: 2.9rem;
-    background: oklch(0.14 0.015 240);
+    background: oklch(0.12 0.015 240);
   }
+
 
   .device-screen {
     position: relative;
