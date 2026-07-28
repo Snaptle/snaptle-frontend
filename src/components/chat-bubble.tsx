@@ -108,7 +108,7 @@ export function ChatBubble() {
               <button
                 type="submit"
                 aria-label="전송"
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-sunset text-primary-foreground active:scale-95"
+                className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground hover:bg-primary-deep active:scale-95"
               >
                 <Send className="h-4.5 w-4.5" strokeWidth={2.4} />
               </button>

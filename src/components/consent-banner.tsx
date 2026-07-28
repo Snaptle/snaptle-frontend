@@ -56,7 +56,7 @@ export function ConsentBanner() {
               setConsentStatus("granted");
               setVisible(false);
             }}
-            className="h-11 rounded-full bg-sunset text-sm font-bold text-primary-foreground active:scale-95"
+            className="h-11 rounded-full bg-primary text-sm font-bold text-primary-foreground hover:bg-primary-deep active:scale-95"
           >
             동의
           </button>

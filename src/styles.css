@@ -74,77 +74,79 @@
   /* Airbnb-inspired: softer, modest radius scale (8/10/12/16/20/24/28px) */
   --radius: 0.75rem;
 
-  /* Airbnb-inspired: near-white canvas, generous whitespace over color blocks */
-  --background: oklch(0.99 0.004 80);
-  --foreground: oklch(0.26 0.035 240);
+  /* Airbnb-inspired: pure-white canvas, neutral grays instead of warm-tinted cream */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.24 0.004 260);
   --card: oklch(1 0 0);
 
-  --card-foreground: oklch(0.26 0.035 240);
+  --card-foreground: oklch(0.24 0.004 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.26 0.035 240);
+  --popover-foreground: oklch(0.24 0.004 260);
 
-  /* coral / sunset orange — #FF7A59 */
+  /* Snaptle 브랜드 코랄 — Airbnb Rausch처럼 "화면당 한 번" 원칙으로 절제해서 사용 */
   --primary: oklch(0.724 0.155 39.5);
   --primary-foreground: oklch(1 0 0);
-  --primary-soft: oklch(0.955 0.035 48);
-  --primary-deep: oklch(0.645 0.178 34);
+  --primary-soft: oklch(0.965 0.025 45);
+  --primary-deep: oklch(0.62 0.17 32);
 
-  --secondary: oklch(0.955 0.022 60);
-  --secondary-foreground: oklch(0.33 0.043 227);
+  --secondary: oklch(0.965 0.002 260);
+  --secondary-foreground: oklch(0.24 0.004 260);
 
-  --muted: oklch(0.958 0.014 62);
-  --muted-foreground: oklch(0.545 0.03 45);
+  /* Airbnb surface-strong / muted #6a6a6a 계열 중립 그레이 */
+  --muted: oklch(0.955 0.002 260);
+  --muted-foreground: oklch(0.55 0.004 260);
 
-  --accent: oklch(0.955 0.035 48);
-  --accent-foreground: oklch(0.645 0.178 34);
+  --accent: oklch(0.965 0.025 45);
+  --accent-foreground: oklch(0.62 0.17 32);
 
-  --destructive: oklch(0.585 0.216 26);
+  --destructive: oklch(0.52 0.17 28);
   --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.918 0.016 58);
-  --input: oklch(0.918 0.016 58);
+  /* Airbnb hairline #dddddd 계열 */
+  --border: oklch(0.87 0.003 260);
+  --input: oklch(0.87 0.003 260);
   --ring: oklch(0.724 0.155 39.5);
 
-  /* deep navy — #1B3A4B */
-  --trust: oklch(0.332 0.043 227.5);
-  --trust-foreground: oklch(0.985 0.008 60);
-  --trust-soft: oklch(0.945 0.017 220);
-  --teal: oklch(0.556 0.073 210);
-  --teal-soft: oklch(0.948 0.024 205);
+  /* "trust" = Airbnb ink 톤(#222 근처 중립 다크그레이). 남색 대신 무채색 헤드라인 컬러로 재정의 */
+  --trust: oklch(0.24 0.004 260);
+  --trust-foreground: oklch(1 0 0);
+  --trust-soft: oklch(0.965 0.002 260);
+  --teal: oklch(0.5 0.05 215);
+  --teal-soft: oklch(0.955 0.012 210);
 
-  --success: oklch(0.578 0.114 158);
-  --success-soft: oklch(0.952 0.036 158);
+  --success: oklch(0.55 0.1 158);
+  --success-soft: oklch(0.95 0.03 155);
 
   --kakao: oklch(0.86 0.16 96);
   --kakao-foreground: oklch(0.28 0.03 80);
 
   --chart-1: oklch(0.724 0.155 39.5);
-  --chart-2: oklch(0.556 0.073 210);
-  --chart-3: oklch(0.332 0.043 227.5);
+  --chart-2: oklch(0.5 0.05 215);
+  --chart-3: oklch(0.24 0.004 260);
   --chart-4: oklch(0.82 0.13 78);
-  --chart-5: oklch(0.578 0.114 158);
+  --chart-5: oklch(0.55 0.1 158);
 
-  --sidebar: oklch(0.985 0.011 62);
-  --sidebar-foreground: oklch(0.26 0.035 240);
+  --sidebar: oklch(0.985 0.002 260);
+  --sidebar-foreground: oklch(0.24 0.004 260);
   --sidebar-primary: oklch(0.724 0.155 39.5);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.955 0.035 48);
-  --sidebar-accent-foreground: oklch(0.645 0.178 34);
-  --sidebar-border: oklch(0.918 0.016 58);
+  --sidebar-accent: oklch(0.965 0.025 45);
+  --sidebar-accent-foreground: oklch(0.62 0.17 32);
+  --sidebar-border: oklch(0.87 0.003 260);
   --sidebar-ring: oklch(0.724 0.155 39.5);
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.78 0.15 55), oklch(0.685 0.175 32));
-  --gradient-trust: linear-gradient(140deg, oklch(0.38 0.05 222), oklch(0.29 0.04 235));
+  --gradient-trust: linear-gradient(140deg, oklch(0.34 0.006 260), oklch(0.22 0.004 260));
 
-  /* Airbnb-inspired: a single, restrained shadow tier instead of layered/colored elevation */
+  /* Airbnb-inspired: a single, restrained neutral shadow tier instead of layered/colored elevation */
   --shadow-card:
-    0 0 0 1px oklch(0.33 0.043 227.5 / 0.03),
-    0 2px 6px oklch(0.33 0.043 227.5 / 0.05),
-    0 4px 8px oklch(0.33 0.043 227.5 / 0.06);
+    0 0 0 1px oklch(0 0 0 / 0.03),
+    0 2px 6px oklch(0 0 0 / 0.05),
+    0 4px 8px oklch(0 0 0 / 0.06);
   --shadow-lift:
-    0 0 0 1px oklch(0.33 0.043 227.5 / 0.04),
-    0 6px 16px oklch(0.33 0.043 227.5 / 0.08),
-    0 12px 24px oklch(0.33 0.043 227.5 / 0.08);
+    0 0 0 1px oklch(0 0 0 / 0.04),
+    0 6px 16px oklch(0 0 0 / 0.08),
+    0 12px 24px oklch(0 0 0 / 0.08);
   --shadow-float: 0 4px 12px oklch(0.724 0.155 39.5 / 0.24);
   --shadow-pill: 0 0 0 1px oklch(0.33 0.043 227.5 / 0.04);
 }

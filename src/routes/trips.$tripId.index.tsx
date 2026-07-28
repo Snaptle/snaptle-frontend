@@ -202,7 +202,7 @@ function TripDetailPage() {
       <Link
         to="/trips/$tripId/new-expense"
         params={{ tripId }}
-        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-sunset px-5 py-4 font-bold text-primary-foreground shadow-float active:scale-95"
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-primary px-5 py-4 font-bold text-primary-foreground shadow-float hover:bg-primary-deep active:scale-95"
       >
         <Plus className="h-5 w-5" strokeWidth={3} />
         지출 추가
