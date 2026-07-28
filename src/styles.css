@@ -365,6 +365,10 @@
     background: var(--color-background);
     display: flex;
     flex-direction: column;
+    /* fixed 요소가 뷰포트가 아닌 프레임 기준이 되도록 containing block 생성.
+       스크롤되는 .device-viewport가 아니라 스크롤되지 않는 이 요소에 둬야
+       내부 스크롤 시 fixed 자식(하단 탭바, FAB 등)이 같이 딸려 올라가지 않는다. */
+    transform: translateZ(0);
   }
 
   .device-statusbar {
@@ -396,8 +400,6 @@
     min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    /* fixed 요소가 뷰포트가 아닌 프레임 기준이 되도록 containing block 생성 */
-    transform: translateZ(0);
   }
 
   .device-viewport ::-webkit-scrollbar {
