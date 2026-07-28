@@ -42,15 +42,15 @@ function DebtsPage() {
       <PageTitle title="밀린 정산" subtitle="내기·대신 낸 돈처럼 둘 사이에 남은 금액만 가볍게" />
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <div className="rounded-2xl bg-trust-gradient p-4 text-trust-foreground">
-          <p className="flex items-center gap-1.5 text-[11px] font-semibold opacity-80">
+        <div className="rounded-3xl bg-trust-gradient p-5 text-trust-foreground shadow-lift tilt-a">
+          <p className="pill bg-card/15 text-trust-foreground">
             <ArrowDownLeft className="h-3.5 w-3.5" />
             받을 돈
           </p>
           <p className="amount mt-1 text-2xl">{formatCurrency(receiveTotal)}</p>
         </div>
-        <div className="rounded-2xl border border-border bg-card p-4 shadow-card">
-          <p className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground">
+        <div className="rounded-3xl border border-border/70 bg-card p-5 shadow-card tilt-b">
+          <p className="pill bg-muted text-muted-foreground">
             <ArrowUpRight className="h-3.5 w-3.5" />
             줄 돈
           </p>
@@ -59,7 +59,7 @@ function DebtsPage() {
       </div>
 
       <Button
-        className="mt-3 h-12 w-full rounded-2xl bg-sunset text-base font-bold shadow-float hover:opacity-95"
+        className="mt-4 h-13 w-full rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
         onClick={() => setFormOpen((v) => !v)}
       >
         <Plus className="h-5 w-5" strokeWidth={2.6} />
@@ -68,7 +68,7 @@ function DebtsPage() {
 
       {formOpen ? (
         <form
-          className="mt-3 space-y-2 rounded-2xl border border-dashed border-primary/40 bg-primary-soft/50 p-4"
+          className="mt-4 space-y-2.5 rounded-3xl border border-dashed border-primary/40 bg-primary-soft/60 p-5 shadow-card"
           onSubmit={(e) => {
             e.preventDefault();
             setFormOpen(false);
@@ -101,7 +101,7 @@ function DebtsPage() {
         </form>
       ) : null}
 
-      <div className="mt-6 grid grid-cols-3 rounded-2xl bg-muted p-1 text-sm font-bold">
+      <div className="mt-7 grid grid-cols-3 rounded-full bg-muted p-1 text-sm font-bold">
         {(
           [
             ["all", "전체"],
@@ -112,7 +112,7 @@ function DebtsPage() {
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`h-10 rounded-xl transition-colors ${
+            className={`h-10 rounded-full transition-colors ${
               tab === id ? "bg-card text-trust shadow-sm" : "text-muted-foreground"
             }`}
           >
@@ -121,11 +121,11 @@ function DebtsPage() {
         ))}
       </div>
 
-      <div className="mt-4 space-y-2">
+      <div className="mt-4 space-y-3">
         {visible.map((d) => (
           <article
             key={d.id}
-            className={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-border bg-card p-3.5 shadow-card ${
+            className={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3.5 rounded-3xl border border-border/70 bg-card p-4.5 shadow-card ${
               d.settled ? "opacity-55" : ""
             }`}
           >
@@ -169,9 +169,9 @@ function DebtsPage() {
         ))}
 
         {visible.length === 0 ? (
-          <div className="flex flex-col items-center rounded-3xl border border-dashed border-border py-12 text-center">
+          <div className="flex flex-col items-center rounded-[2rem] border border-dashed border-border bg-card/60 py-14 text-center shadow-card">
             <PlaneDoodle className="text-primary/40" />
-            <p className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-trust">
+            <p className="mt-3 flex items-center gap-1.5 text-sm font-semibold text-trust">
               <Wallet className="h-4 w-4" />
               아직 밀린 정산이 없어요
             </p>
