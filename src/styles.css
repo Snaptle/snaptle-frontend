@@ -257,6 +257,10 @@
   }
 }
 
+.device-statusbar {
+  display: none;
+}
+
 /* ── 데스크톱 데모용 스마트폰 프레임 (프레젠테이션 전용, 로직 무관) ───────── */
 @media (min-width: 768px) {
   .device-stage {
