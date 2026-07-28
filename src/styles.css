@@ -256,3 +256,87 @@
     letter-spacing: -0.02em;
   }
 }
+
+/* ── 데스크톱 데모용 스마트폰 프레임 (프레젠테이션 전용, 로직 무관) ───────── */
+@media (min-width: 768px) {
+  .device-stage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+    background:
+      radial-gradient(1100px 620px at 18% 8%, oklch(0.78 0.15 55 / 0.28), transparent 60%),
+      radial-gradient(900px 620px at 88% 96%, oklch(0.556 0.073 210 / 0.35), transparent 62%),
+      linear-gradient(150deg, oklch(0.24 0.03 233), oklch(0.33 0.043 227.5));
+  }
+
+  .device-shell {
+    padding: 0.55rem;
+    border-radius: 3.35rem;
+    background: linear-gradient(160deg, oklch(0.42 0.02 240), oklch(0.2 0.02 240));
+    box-shadow:
+      0 2px 0 oklch(1 0 0 / 0.14) inset,
+      0 40px 90px -25px oklch(0 0 0 / 0.7),
+      0 18px 40px -18px oklch(0.724 0.155 39.5 / 0.4);
+  }
+
+  .device-bezel {
+    padding: 0.22rem;
+    border-radius: 2.9rem;
+    background: oklch(0.14 0.015 240);
+  }
+
+  .device-screen {
+    position: relative;
+    width: 390px;
+    height: min(844px, calc(100vh - 6.5rem));
+    overflow: hidden;
+    border-radius: 2.7rem;
+    background: var(--color-background);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .device-statusbar {
+    position: relative;
+    z-index: 50;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1.6rem 0.35rem;
+    color: var(--color-foreground);
+    background: var(--color-background);
+  }
+
+  .device-notch {
+    position: absolute;
+    left: 50%;
+    top: 0.45rem;
+    transform: translateX(-50%);
+    width: 6.5rem;
+    height: 1.5rem;
+    border-radius: 9999px;
+    background: oklch(0.12 0.012 240);
+  }
+
+  .device-viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* fixed 요소가 뷰포트가 아닌 프레임 기준이 되도록 containing block 생성 */
+    transform: translateZ(0);
+  }
+
+  .device-viewport ::-webkit-scrollbar {
+    width: 0;
+  }
+
+  /* 앱 내부의 전체화면 높이 기준을 프레임 높이로 치환 */
+  .device-viewport .min-h-screen {
+    min-height: 100%;
+  }
+}
