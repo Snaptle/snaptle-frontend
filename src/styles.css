@@ -199,8 +199,10 @@
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.72 0.14 55), oklch(0.6 0.16 32));
   --gradient-trust: linear-gradient(140deg, oklch(0.33 0.04 222), oklch(0.25 0.035 235));
-  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.25), 0 12px 28px -18px oklch(0 0 0 / 0.6);
-  --shadow-float: 0 12px 32px -8px oklch(0.742 0.152 40 / 0.45);
+  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.25), 0 18px 40px -24px oklch(0 0 0 / 0.65);
+  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.3), 0 30px 60px -28px oklch(0 0 0 / 0.7);
+  --shadow-float: 0 14px 38px -10px oklch(0.742 0.152 40 / 0.45);
+  --shadow-pill: 0 1px 0 oklch(1 0 0 / 0.08) inset, 0 4px 10px -6px oklch(0 0 0 / 0.6);
 }
 
 @utility bg-sunset {
@@ -215,9 +217,36 @@
   box-shadow: var(--shadow-card);
 }
 
+@utility shadow-lift {
+  box-shadow: var(--shadow-lift);
+}
+
 @utility shadow-float {
   box-shadow: var(--shadow-float);
 }
+
+/* Bento풍 알약 뱃지 */
+@utility pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: var(--shadow-pill);
+}
+
+/* 손으로 정리한 듯 살짝 기울어진 카드 */
+@utility tilt-a {
+  transform: rotate(-0.5deg);
+}
+
+@utility tilt-b {
+  transform: rotate(0.45deg);
+}
+
 
 /* 금액 표기: 항상 크고 명확하게 */
 @utility amount {
