@@ -13,13 +13,13 @@ import { formatCurrency, formatDay } from "@/lib/settlement";
 export const Route = createFileRoute("/debts")({
   head: () => ({
     meta: [
-      { title: "개인 간 채무 · Snaptle" },
+      { title: "밀린 정산 · Snaptle" },
       {
         name: "description",
-        content: "여행과 별개로 친구에게 받을 돈과 보낼 돈을 기록하고 한눈에 확인하세요.",
+        content: "여행 정산과는 별개로, 내기나 소소한 대여처럼 둘 사이에 남은 돈을 가볍게 기록해두세요.",
       },
-      { property: "og:title", content: "개인 간 채무 · Snaptle" },
-      { property: "og:description", content: "내기 대금, 대신 결제한 돈까지 잊지 않고 정산." },
+      { property: "og:title", content: "밀린 정산 · Snaptle" },
+      { property: "og:description", content: "술내기, 대신 낸 택시비까지 잊지 않고 가볍게 기록." },
     ],
   }),
   component: DebtsPage,
@@ -39,7 +39,7 @@ function DebtsPage() {
 
   return (
     <AppShell>
-      <PageTitle title="개인 간 채무" subtitle="여행 밖에서 주고받은 돈도 잊지 않게" />
+      <PageTitle title="밀린 정산" subtitle="내기·대신 낸 돈처럼 둘 사이에 남은 금액만 가볍게" />
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <div className="rounded-2xl bg-trust-gradient p-4 text-trust-foreground">
@@ -52,7 +52,7 @@ function DebtsPage() {
         <div className="rounded-2xl border border-border bg-card p-4 shadow-card">
           <p className="flex items-center gap-1.5 text-[11px] font-semibold text-muted-foreground">
             <ArrowUpRight className="h-3.5 w-3.5" />
-            보낼 돈
+            줄 돈
           </p>
           <p className="amount mt-1 text-2xl text-primary-deep">{formatCurrency(payTotal)}</p>
         </div>
@@ -63,7 +63,7 @@ function DebtsPage() {
         onClick={() => setFormOpen((v) => !v)}
       >
         <Plus className="h-5 w-5" strokeWidth={2.6} />
-        채무 기록하기
+        정산 남기기
       </Button>
 
       {formOpen ? (
@@ -72,7 +72,7 @@ function DebtsPage() {
           onSubmit={(e) => {
             e.preventDefault();
             setFormOpen(false);
-            toast.success("채무를 기록했어요");
+            toast.success("밀린 정산을 남겨뒀어요");
           }}
         >
           <div className="grid grid-cols-2 gap-2">
@@ -87,15 +87,15 @@ function DebtsPage() {
             />
           </div>
           <input
-            placeholder="메모 (예: 볼링 내기 대금)"
+            placeholder="메모 (예: 볼링 내기, 택시비 대신 결제)"
             className="h-11 w-full rounded-xl border border-input bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
           />
           <div className="grid grid-cols-2 gap-2 pt-1">
             <Button type="submit" className="h-11 rounded-xl bg-trust font-bold text-trust-foreground">
-              받을 돈으로 기록
+              받을 돈으로 남기기
             </Button>
             <Button type="submit" variant="outline" className="h-11 rounded-xl bg-card font-bold text-trust">
-              보낼 돈으로 기록
+              줄 돈으로 남기기
             </Button>
           </div>
         </form>
@@ -106,7 +106,7 @@ function DebtsPage() {
           [
             ["all", "전체"],
             ["receive", "받을 돈"],
-            ["pay", "보낼 돈"],
+            ["pay", "줄 돈"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -134,7 +134,7 @@ function DebtsPage() {
               <p className="truncate font-bold text-trust">
                 {d.counterpart}
                 <span className="ml-1.5 text-xs font-semibold text-muted-foreground">
-                  {d.direction === "receive" ? "에게 받을 돈" : "에게 보낼 돈"}
+                  {d.direction === "receive" ? "에게 받을 돈" : "에게 줄 돈"}
                 </span>
               </p>
               <p className="mt-0.5 truncate text-xs text-muted-foreground">
@@ -173,7 +173,7 @@ function DebtsPage() {
             <PlaneDoodle className="text-primary/40" />
             <p className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-trust">
               <Wallet className="h-4 w-4" />
-              기록된 채무가 없어요
+              아직 밀린 정산이 없어요
             </p>
           </div>
         ) : null}
