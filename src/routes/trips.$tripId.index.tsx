@@ -94,7 +94,7 @@ function TripDetailPage() {
           </div>
 
           <Button
-            className="mt-4 h-12 w-full rounded-2xl bg-card text-base font-bold text-trust hover:bg-card/90"
+            className="mt-4 h-13 w-full rounded-full bg-card text-base font-bold text-trust hover:bg-card/90"
             onClick={() => navigate({ to: "/trips/$tripId/settlement", params: { tripId } })}
           >
             <Wallet className="h-5 w-5" />
@@ -134,7 +134,7 @@ function TripDetailPage() {
                   return (
                     <article
                       key={e.id}
-                      className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-card"
+                      className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 rounded-[1.5rem] border border-border/70 bg-card p-4 shadow-card"
                     >
                       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-lg">
                         {cat.emoji}
@@ -170,7 +170,7 @@ function TripDetailPage() {
           ))}
         </div>
 
-        <div className="mt-8 rounded-2xl border border-border bg-card p-4 shadow-card">
+        <div className="mt-8 rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-card">
           <h2 className="text-sm font-bold text-trust">카테고리별 사용액</h2>
           <div className="mt-3 space-y-2">
             {CATEGORIES.map((c) => {

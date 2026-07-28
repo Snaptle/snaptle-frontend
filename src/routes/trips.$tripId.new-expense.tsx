@@ -112,7 +112,7 @@ function NewExpensePage() {
               </p>
               <div className="mt-6 grid gap-2">
                 <Button
-                  className="h-12 rounded-2xl bg-sunset text-base font-bold shadow-float hover:opacity-95"
+                  className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
                   onClick={startScan}
                 >
                   <Camera className="h-5 w-5" />
@@ -120,7 +120,7 @@ function NewExpensePage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-12 rounded-2xl border-trust/25 bg-card text-base font-bold text-trust"
+                  className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust"
                   onClick={startScan}
                 >
                   <ImagePlus className="h-5 w-5" />
@@ -147,9 +147,9 @@ function NewExpensePage() {
 
         {step === "review" ? (
           <section className="space-y-5">
-            <div className="rounded-3xl border border-border bg-card p-4 shadow-card">
+            <div className="rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-card">
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-primary-soft px-2.5 py-1 text-[11px] font-bold text-primary-deep">
+                <span className="pill bg-primary-soft text-primary-deep">
                   <Sparkles className="h-3.5 w-3.5" />
                   AI 인식 완료 {Math.round(SCAN_RESULT.confidence * 100)}%
                 </span>
@@ -242,7 +242,7 @@ function NewExpensePage() {
               </div>
             </div>
 
-            <div className="rounded-3xl border border-border bg-card p-4 shadow-card">
+            <div className="rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-card">
               <h2 className="text-sm font-bold text-trust">누가 결제했나요?</h2>
               <div className="mt-3 flex flex-wrap gap-2">
                 {trip.members.map((m) => (
@@ -352,7 +352,7 @@ function NewExpensePage() {
               </p>
             </div>
             <Button
-              className="h-12 rounded-2xl bg-sunset px-6 text-base font-bold shadow-float hover:opacity-95"
+              className="h-13 rounded-full bg-sunset px-6 text-base font-bold shadow-float hover:opacity-95"
               onClick={() => {
                 toast.success("지출이 등록되었어요", { description: merchant });
                 navigate({ to: "/trips/$tripId", params: { tripId } });
