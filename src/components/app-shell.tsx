@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Plane, Receipt, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
 
+import { ChatBubble } from "@/components/chat-bubble";
 import { SnaptleLogo } from "@/components/brand";
 import { MemberAvatar } from "@/components/member-avatar";
 import { cn } from "@/lib/utils";
@@ -48,6 +49,8 @@ export function AppShell({
           ))}
         </div>
       </nav>
+
+      <ChatBubble />
     </div>
   );
 }

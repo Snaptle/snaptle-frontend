@@ -55,7 +55,7 @@ function TripDetailPage() {
   const myBalance = computeBalances(trip).find((b) => b.member.id === ME);
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pb-36">
       <header className="bg-trust-gradient px-4 pb-6 pt-4 text-trust-foreground">
         <div className="mx-auto max-w-xl">
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
@@ -202,7 +202,7 @@ function TripDetailPage() {
       <Link
         to="/trips/$tripId/new-expense"
         params={{ tripId }}
-        className="fixed bottom-6 right-1/2 z-40 flex translate-x-[min(50vw-1.5rem,17.5rem)] items-center gap-2 rounded-full bg-sunset px-5 py-4 font-bold text-primary-foreground shadow-float active:scale-95"
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2 rounded-full bg-sunset px-5 py-4 font-bold text-primary-foreground shadow-float active:scale-95"
       >
         <Plus className="h-5 w-5" strokeWidth={3} />
         지출 추가

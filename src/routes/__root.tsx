@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { ConsentBanner } from "../components/consent-banner";
 import { DeviceFrame } from "../components/device-frame";
 import { Toaster } from "../components/ui/sonner";
 import appCss from "../styles.css?url";
@@ -115,20 +116,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-const CLARITY_SNIPPET = `
-(function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "xt95mmria3");
-`;
-
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
       <head>
         <HeadContent />
-        <script type="text/javascript" dangerouslySetInnerHTML={{ __html: CLARITY_SNIPPET }} />
       </head>
       <body>
         {children}
@@ -146,6 +138,7 @@ function RootComponent() {
       <DeviceFrame>
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
+        <ConsentBanner />
       </DeviceFrame>
       <Toaster position="top-center" richColors />
     </QueryClientProvider>
