@@ -98,7 +98,7 @@ function TripDetailPage() {
             onClick={() => navigate({ to: "/trips/$tripId/settlement", params: { tripId } })}
           >
             <Wallet className="h-5 w-5" />
-            여행 종료하고 정산하기
+            {trip.status === "closed" ? "정산 결과 다시 보기" : "여행 종료하고 정산하기"}
           </Button>
         </div>
       </header>

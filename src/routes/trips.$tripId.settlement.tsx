@@ -1,6 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, CheckCircle2, Landmark, Share2, TicketCheck, Wallet } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle2,
+  ChevronDown,
+  Landmark,
+  Share2,
+  TicketCheck,
+  Wallet,
+} from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
 import { toast } from "sonner";
 
 import { MemberAvatar } from "@/components/member-avatar";
@@ -14,8 +23,26 @@ import {
   formatCurrency,
   formatDateRange,
   totalSpend,
+  type Balance,
   type Transfer,
 } from "@/lib/settlement";
+
+/** 잔액을 1인칭(본인)/3인칭(다른 멤버) 관점의 단일 행동 문장으로 풀어준다. */
+function describeBalance(member: Member, transfers: Transfer[], isMe: boolean, currency: string): string {
+  const outgoing = transfers.filter((t) => t.from.id === member.id);
+  const incoming = transfers.filter((t) => t.to.id === member.id);
+  const who = isMe ? "당신이" : `${member.name}님이`;
+
+  if (outgoing.length > 0) {
+    const parts = outgoing.map((t) => `${t.to.name}님에게 ${formatCurrency(t.amount, currency)}`);
+    return `${who} ${parts.join(", ")} 보내면 끝이에요.`;
+  }
+  if (incoming.length > 0) {
+    const parts = incoming.map((t) => `${t.from.name}님에게서 ${formatCurrency(t.amount, currency)}`);
+    return `${who} ${parts.join(", ")} 받으면 끝이에요.`;
+  }
+  return `${who} 이미 정확히 정산됐어요. 더 보내거나 받을 돈이 없어요.`;
+}
 
 export const Route = createFileRoute("/trips/$tripId/settlement")({
   head: () => ({
@@ -64,7 +91,7 @@ function SettlementPage() {
       return;
     }
     trackEvent("toss_pay_click");
-    const link = buildTossSendLink(account, t.amount, `${trip.name} 정산`);
+    const link = buildTossSendLink(account, t.amount, `${trip!.name} 정산`);
     window.location.href = link;
   }
 
@@ -116,29 +143,13 @@ function SettlementPage() {
         </h2>
         <div className="mt-3 space-y-2">
           {balances.map((b) => (
-            <div key={b.member.id} className="rounded-[1.5rem] border border-border/70 bg-card p-4 shadow-card">
-              <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
-                <MemberAvatar name={b.member.name} tone={b.member.tone} size="lg" />
-                <div className="min-w-0">
-                  <p className="truncate font-bold text-trust">
-                    {b.member.name}
-                    {b.member.id === ME ? " (나)" : ""}
-                  </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    낸 돈 {formatCurrency(b.paid, trip.currency)} · 쓴 돈{" "}
-                    {formatCurrency(b.owed, trip.currency)}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-[11px] font-semibold text-muted-foreground">
-                    {b.net >= 0 ? "받을 돈" : "보낼 돈"}
-                  </p>
-                  <p className={`amount text-xl ${b.net >= 0 ? "text-teal" : "text-primary-deep"}`}>
-                    {formatCurrency(Math.abs(b.net), trip.currency)}
-                  </p>
-                </div>
-              </div>
-
+            <BalanceCard
+              key={b.member.id}
+              balance={b}
+              transfers={transfers}
+              currency={trip.currency}
+              isMe={b.member.id === ME}
+            >
               {b.member.id === ME ? (
                 <MyAccountRow
                   key={accountVersion}
@@ -150,7 +161,7 @@ function SettlementPage() {
                   onSave={(account) => handleSave(b.member.id, account)}
                 />
               ) : null}
-            </div>
+            </BalanceCard>
           ))}
         </div>
 
@@ -188,6 +199,7 @@ function SettlementPage() {
                   <AccountForm
                     key={accountVersion}
                     memberName={t.to.name}
+                    isSelf={t.to.id === ME}
                     initial={getAccount(t.to.id)}
                     onCancel={() => setEditingMemberId(null)}
                     onSave={(account) => {
@@ -244,6 +256,65 @@ function SettlementPage() {
   );
 }
 
+function BalanceCard({
+  balance,
+  transfers,
+  currency,
+  isMe,
+  children,
+}: {
+  balance: Balance;
+  transfers: Transfer[];
+  currency: string;
+  isMe: boolean;
+  children?: ReactNode;
+}) {
+  const [detailOpen, setDetailOpen] = useState(false);
+  const b = balance;
+
+  return (
+    <div className="rounded-[1.5rem] border border-border/70 bg-card p-4 shadow-card">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3">
+        <MemberAvatar name={b.member.name} tone={b.member.tone} size="lg" />
+        <div className="min-w-0">
+          <p className="truncate font-bold text-trust">
+            {b.member.name}
+            {isMe ? " (나)" : ""}
+          </p>
+          <p className="mt-0.5 line-clamp-2 text-xs font-semibold text-trust">
+            {describeBalance(b.member, transfers, isMe, currency)}
+          </p>
+        </div>
+        <div className="text-right">
+          <p className="text-[11px] font-semibold text-muted-foreground">
+            {b.net >= 0 ? "받을 돈" : "보낼 돈"}
+          </p>
+          <p className={`amount text-xl ${b.net >= 0 ? "text-teal" : "text-primary-deep"}`}>
+            {formatCurrency(Math.abs(b.net), currency)}
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setDetailOpen((v) => !v)}
+        className="mt-2 flex items-center gap-1 text-[11px] font-semibold text-muted-foreground"
+      >
+        <ChevronDown className={`h-3.5 w-3.5 transition-transform ${detailOpen ? "rotate-180" : ""}`} />
+        자세히 보기
+      </button>
+
+      {detailOpen ? (
+        <p className="mt-1 text-xs text-muted-foreground">
+          낸 돈 {formatCurrency(b.paid, currency)} · 쓴 돈 {formatCurrency(b.owed, currency)}
+        </p>
+      ) : null}
+
+      {children}
+    </div>
+  );
+}
+
 function MyAccountRow({
   member,
   editing,
@@ -260,7 +331,7 @@ function MyAccountRow({
   return (
     <div className="mt-3 border-t border-dashed border-border/70 pt-3">
       {editing ? (
-        <AccountForm memberName="내" initial={account} onCancel={onEditToggle} onSave={onSave} />
+        <AccountForm memberName="내" isSelf initial={account} onCancel={onEditToggle} onSave={onSave} />
       ) : (
         <button
           type="button"
@@ -283,11 +354,13 @@ function MyAccountRow({
 
 function AccountForm({
   memberName,
+  isSelf = false,
   initial,
   onCancel,
   onSave,
 }: {
   memberName: string;
+  isSelf?: boolean;
   initial: Account | null;
   onCancel: () => void;
   onSave: (account: Account) => void;
@@ -308,6 +381,12 @@ function AccountForm({
   return (
     <div className="space-y-2 rounded-xl bg-trust-soft/60 p-3">
       <p className="text-[11px] font-bold text-trust">{memberName} 계좌 등록</p>
+      {!isSelf ? (
+        <p className="text-[11px] text-muted-foreground">
+          {memberName}에게 물어보고 계좌를 입력해주세요. 송금 링크를 만드는 데만 쓰이고, 이
+          기기에만 저장돼요.
+        </p>
+      ) : null}
       <div className="flex gap-2">
         <select
           value={bankCode}

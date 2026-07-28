@@ -1,7 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Plus, Ticket, TicketCheck, Users } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 
 import { AppShell, PageTitle } from "@/components/app-shell";
 import { PlaneDoodle } from "@/components/brand";
@@ -10,7 +11,12 @@ import { Button } from "@/components/ui/button";
 import { TRIPS } from "@/lib/mock-data";
 import { formatCurrency, formatDateRange, totalSpend } from "@/lib/settlement";
 
+const searchSchema = z.object({
+  code: z.string().optional(),
+});
+
 export const Route = createFileRoute("/")({
+  validateSearch: searchSchema,
   head: () => ({
     meta: [
       { title: "내 여행 목록 · Snaptle 여행 정산" },
@@ -42,8 +48,28 @@ const STATUS_LABEL = {
 } as const;
 
 function TripsPage() {
+  const { code: incomingCode } = Route.useSearch();
+  const navigate = useNavigate();
   const [joinOpen, setJoinOpen] = useState(false);
   const [code, setCode] = useState("");
+
+  const incomingTrip = incomingCode
+    ? TRIPS.find((t) => t.inviteCode.toUpperCase() === incomingCode.toUpperCase())
+    : undefined;
+
+  useEffect(() => {
+    if (incomingCode) setJoinOpen(true);
+  }, [incomingCode]);
+
+  function joinByCode(rawCode: string) {
+    const trip = TRIPS.find((t) => t.inviteCode.toUpperCase() === rawCode.toUpperCase());
+    if (!trip) {
+      toast.error("초대코드를 찾을 수 없어요. 코드를 다시 확인해주세요.");
+      return;
+    }
+    toast.success(`${trip.name}에 참여했어요`);
+    navigate({ to: "/trips/$tripId", params: { tripId: trip.id }, search: {} });
+  }
 
   return (
     <AppShell>
@@ -67,7 +93,31 @@ function TripsPage() {
         </Button>
       </div>
 
-      {joinOpen ? (
+      {joinOpen && incomingCode ? (
+        <div className="mt-3 rounded-3xl border border-dashed border-primary/40 bg-primary-soft/50 p-5 shadow-card">
+          {incomingTrip ? (
+            <>
+              <p className="text-sm font-bold text-trust">
+                <span className="text-primary-deep">{incomingTrip.name}</span> 여행에
+                참여하시겠어요?
+              </p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {incomingTrip.destination} · {incomingTrip.members.length}명이 함께하고 있어요
+              </p>
+              <Button
+                className="mt-3 h-11 w-full rounded-xl bg-primary font-bold"
+                onClick={() => joinByCode(incomingCode)}
+              >
+                참여하기
+              </Button>
+            </>
+          ) : (
+            <p className="text-sm font-semibold text-trust">
+              유효하지 않은 초대코드예요: {incomingCode}
+            </p>
+          )}
+        </div>
+      ) : joinOpen ? (
         <div className="mt-3 rounded-3xl border border-dashed border-trust/30 bg-trust-soft/60 p-5 shadow-card">
           <label htmlFor="invite" className="text-xs font-bold uppercase tracking-wider text-trust">
             초대코드 입력
@@ -80,13 +130,13 @@ function TripsPage() {
               placeholder="예: OSAKA26"
               className="h-11 min-w-0 rounded-xl border border-input bg-card px-3 font-display font-bold tracking-widest text-trust outline-none placeholder:font-sans placeholder:font-normal placeholder:tracking-normal placeholder:text-muted-foreground focus:ring-2 focus:ring-ring"
             />
-            <Button
-              className="h-11 rounded-xl bg-primary font-bold"
-              onClick={() => toast.success(`${code || "코드"} 여행에 참여했어요`)}
-            >
+            <Button className="h-11 rounded-xl bg-primary font-bold" onClick={() => joinByCode(code)}>
               참여하기
             </Button>
           </div>
+          <p className="mt-2 text-[11px] text-muted-foreground">
+            초대 링크를 받았다면 코드를 직접 입력할 필요 없이 링크만 눌러도 바로 참여돼요.
+          </p>
         </div>
       ) : null}
 
@@ -94,7 +144,7 @@ function TripsPage() {
         {TRIPS.map((trip, i) => (
           <Link
             key={trip.id}
-            to="/trips/$tripId"
+            to={trip.status === "closed" ? "/trips/$tripId/settlement" : "/trips/$tripId"}
             params={{ tripId: trip.id }}
             className={`block rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-card transition-transform hover:shadow-lift active:scale-[0.99] ${i % 2 === 0 ? "tilt-a" : "tilt-b"}`}
           >
