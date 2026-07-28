@@ -49,9 +49,9 @@ function TripsPage() {
     <AppShell>
       <PageTitle title="내 여행" subtitle="함께 쓴 돈, 한 장의 티켓처럼 정리해요" />
 
-      <div className="mt-4 grid grid-cols-2 gap-2">
+      <div className="mt-5 grid grid-cols-2 gap-2.5">
         <Button
-          className="h-12 rounded-2xl bg-sunset text-base font-bold shadow-float hover:opacity-95"
+          className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
           onClick={() => toast.success("새 여행 만들기", { description: "데모 화면입니다." })}
         >
           <Plus className="h-5 w-5" strokeWidth={2.6} />
@@ -59,7 +59,7 @@ function TripsPage() {
         </Button>
         <Button
           variant="outline"
-          className="h-12 rounded-2xl border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
+          className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
           onClick={() => setJoinOpen((v) => !v)}
         >
           <Ticket className="h-5 w-5" strokeWidth={2.4} />
@@ -68,7 +68,7 @@ function TripsPage() {
       </div>
 
       {joinOpen ? (
-        <div className="mt-3 rounded-2xl border border-dashed border-trust/30 bg-trust-soft/60 p-4">
+        <div className="mt-3 rounded-3xl border border-dashed border-trust/30 bg-trust-soft/60 p-5 shadow-card">
           <label htmlFor="invite" className="text-xs font-bold uppercase tracking-wider text-trust">
             초대코드 입력
           </label>
@@ -90,18 +90,18 @@ function TripsPage() {
         </div>
       ) : null}
 
-      <div className="mt-6 space-y-3">
-        {TRIPS.map((trip) => (
+      <div className="mt-7 space-y-4">
+        {TRIPS.map((trip, i) => (
           <Link
             key={trip.id}
             to="/trips/$tripId"
             params={{ tripId: trip.id }}
-            className="block rounded-3xl border border-border bg-card p-4 shadow-card transition-transform active:scale-[0.99]"
+            className={`block rounded-[1.75rem] border border-border/70 bg-card p-5 shadow-card transition-transform hover:shadow-lift active:scale-[0.99] ${i % 2 === 0 ? "tilt-a" : "tilt-b"}`}
           >
             <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
               <div className="min-w-0">
                 <span
-                  className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-bold ${STATUS_STYLE[trip.status]}`}
+                  className={`pill ${STATUS_STYLE[trip.status]}`}
                 >
                   {STATUS_LABEL[trip.status]}
                 </span>
@@ -129,13 +129,13 @@ function TripsPage() {
         ))}
       </div>
 
-      <div className="mt-8 flex flex-col items-center rounded-3xl border border-dashed border-border bg-card/60 px-6 py-8 text-center">
+      <div className="mt-9 flex flex-col items-center rounded-[2rem] border border-dashed border-border bg-card/60 px-6 py-10 text-center shadow-card">
         <PlaneDoodle className="text-primary/40" />
         <p className="mt-2 text-sm font-semibold text-trust">다음 여행은 어디로 떠나시나요?</p>
         <p className="mt-1 text-xs text-muted-foreground">
           영수증을 올리면 금액·가맹점·통화를 AI가 알아서 읽어드려요.
         </p>
-        <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-primary">
+        <span className="pill mt-4 bg-primary-soft text-primary-deep">
           <TicketCheck className="h-4 w-4" />
           기록된 거래 {TRIPS.reduce((n, t) => n + t.expenses.length, 0)}건
         </span>
