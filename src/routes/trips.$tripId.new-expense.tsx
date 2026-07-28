@@ -14,6 +14,7 @@ import { toast } from "sonner";
 
 import { MemberAvatar } from "@/components/member-avatar";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/clarity";
 import { CATEGORIES, getTrip, ME, type CategoryId } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/settlement";
 
@@ -272,7 +273,10 @@ function NewExpensePage() {
                     균등분할
                   </button>
                   <button
-                    onClick={() => setSplitMode("custom")}
+                    onClick={() => {
+                      trackEvent("custom_split_click");
+                      setSplitMode("custom");
+                    }}
                     className={`rounded-lg px-3 py-1.5 ${splitMode === "custom" ? "bg-card text-trust shadow-sm" : "text-muted-foreground"}`}
                   >
                     직접 입력

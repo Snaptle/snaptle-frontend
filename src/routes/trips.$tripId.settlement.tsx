@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, Share2, TicketCheck } from "lucide-react";
+import { useEffect } from "react";
 import { toast } from "sonner";
 
 import { MemberAvatar } from "@/components/member-avatar";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/clarity";
 import { getTrip, ME } from "@/lib/mock-data";
 import {
   computeBalances,
@@ -31,6 +33,11 @@ export const Route = createFileRoute("/trips/$tripId/settlement")({
 function SettlementPage() {
   const { tripId } = Route.useParams();
   const trip = getTrip(tripId);
+
+  useEffect(() => {
+    if (trip) trackEvent("settlement_view");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tripId]);
 
   if (!trip) {
     return (
@@ -156,7 +163,10 @@ function SettlementPage() {
         <div className="mt-8 grid gap-2">
           <Button
             className="h-12 rounded-2xl bg-sunset text-base font-bold shadow-float hover:opacity-95"
-            onClick={() => toast.success("정산 결과를 공유했어요")}
+            onClick={() => {
+              trackEvent("share_click");
+              toast.success("정산 결과를 공유했어요");
+            }}
           >
             <Share2 className="h-5 w-5" />
             정산 결과 공유하기
