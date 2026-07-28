@@ -71,11 +71,13 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 1.25rem;
 
-  --background: oklch(0.985 0.011 62);
+  /* Bento-inspired warm cream base */
+  --background: oklch(0.977 0.016 78);
   --foreground: oklch(0.26 0.035 240);
-  --card: oklch(1 0 0);
+  --card: oklch(0.998 0.004 80);
+
   --card-foreground: oklch(0.26 0.035 240);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.26 0.035 240);
