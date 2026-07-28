@@ -71,12 +71,13 @@
 }
 
 :root {
-  --radius: 1.25rem;
+  /* Airbnb-inspired: softer, modest radius scale (8/10/12/16/20/24/28px) */
+  --radius: 0.75rem;
 
-  /* Bento-inspired warm cream base */
-  --background: oklch(0.977 0.016 78);
+  /* Airbnb-inspired: near-white canvas, generous whitespace over color blocks */
+  --background: oklch(0.99 0.004 80);
   --foreground: oklch(0.26 0.035 240);
-  --card: oklch(0.998 0.004 80);
+  --card: oklch(1 0 0);
 
   --card-foreground: oklch(0.26 0.035 240);
   --popover: oklch(1 0 0);
@@ -134,16 +135,18 @@
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.78 0.15 55), oklch(0.685 0.175 32));
   --gradient-trust: linear-gradient(140deg, oklch(0.38 0.05 222), oklch(0.29 0.04 235));
+
+  /* Airbnb-inspired: a single, restrained shadow tier instead of layered/colored elevation */
   --shadow-card:
-    0 1px 1px oklch(0.33 0.043 227.5 / 0.04),
-    0 6px 16px -10px oklch(0.33 0.043 227.5 / 0.22),
-    0 24px 48px -24px oklch(0.33 0.043 227.5 / 0.28);
+    0 0 0 1px oklch(0.33 0.043 227.5 / 0.03),
+    0 2px 6px oklch(0.33 0.043 227.5 / 0.05),
+    0 4px 8px oklch(0.33 0.043 227.5 / 0.06);
   --shadow-lift:
-    0 2px 3px oklch(0.33 0.043 227.5 / 0.05),
-    0 12px 28px -14px oklch(0.33 0.043 227.5 / 0.28),
-    0 36px 64px -30px oklch(0.33 0.043 227.5 / 0.32);
-  --shadow-float: 0 14px 38px -10px oklch(0.724 0.155 39.5 / 0.42);
-  --shadow-pill: 0 1px 0 oklch(1 0 0 / 0.6) inset, 0 4px 10px -6px oklch(0.33 0.043 227.5 / 0.45);
+    0 0 0 1px oklch(0.33 0.043 227.5 / 0.04),
+    0 6px 16px oklch(0.33 0.043 227.5 / 0.08),
+    0 12px 24px oklch(0.33 0.043 227.5 / 0.08);
+  --shadow-float: 0 4px 12px oklch(0.724 0.155 39.5 / 0.24);
+  --shadow-pill: 0 0 0 1px oklch(0.33 0.043 227.5 / 0.04);
 }
 
 
@@ -199,10 +202,10 @@
 
   --gradient-sunset: linear-gradient(135deg, oklch(0.72 0.14 55), oklch(0.6 0.16 32));
   --gradient-trust: linear-gradient(140deg, oklch(0.33 0.04 222), oklch(0.25 0.035 235));
-  --shadow-card: 0 1px 2px oklch(0 0 0 / 0.25), 0 18px 40px -24px oklch(0 0 0 / 0.65);
-  --shadow-lift: 0 2px 4px oklch(0 0 0 / 0.3), 0 30px 60px -28px oklch(0 0 0 / 0.7);
-  --shadow-float: 0 14px 38px -10px oklch(0.742 0.152 40 / 0.45);
-  --shadow-pill: 0 1px 0 oklch(1 0 0 / 0.08) inset, 0 4px 10px -6px oklch(0 0 0 / 0.6);
+  --shadow-card: 0 0 0 1px oklch(1 0 0 / 0.06), 0 4px 12px oklch(0 0 0 / 0.35);
+  --shadow-lift: 0 0 0 1px oklch(1 0 0 / 0.08), 0 8px 20px oklch(0 0 0 / 0.4);
+  --shadow-float: 0 4px 14px oklch(0.742 0.152 40 / 0.3);
+  --shadow-pill: 0 0 0 1px oklch(1 0 0 / 0.08);
 }
 
 @utility bg-sunset {
@@ -238,13 +241,13 @@
   box-shadow: var(--shadow-pill);
 }
 
-/* 손으로 정리한 듯 살짝 기울어진 카드 */
+/* Airbnb 스타일: 카드 기울임 없이 정렬된 그리드 */
 @utility tilt-a {
-  transform: rotate(-0.5deg);
+  transform: none;
 }
 
 @utility tilt-b {
-  transform: rotate(0.45deg);
+  transform: none;
 }
 
 

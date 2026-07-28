@@ -99,7 +99,7 @@ function NewExpensePage() {
           >
             <ArrowLeft className="h-5 w-5 text-trust" />
           </Link>
-          <h1 className="truncate text-lg font-extrabold text-trust">지출 추가</h1>
+          <h1 className="truncate text-lg font-bold text-trust">지출 추가</h1>
         </div>
       </header>
 
@@ -107,13 +107,13 @@ function NewExpensePage() {
         {step === "upload" ? (
           <section>
             <div className="ticket-notch rounded-3xl border-2 border-dashed border-primary/40 bg-primary-soft/60 px-6 py-12 text-center">
-              <p className="text-lg font-extrabold text-trust">영수증을 올려주세요</p>
+              <p className="text-lg font-bold text-trust">영수증을 올려주세요</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 가맹점 · 금액 · 통화 · 날짜를 AI가 자동으로 읽어드려요.
               </p>
               <div className="mt-6 grid gap-2">
                 <Button
-                  className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
+                  className="h-12 rounded-lg text-base font-medium"
                   onClick={startScan}
                 >
                   <Camera className="h-5 w-5" />
@@ -121,7 +121,7 @@ function NewExpensePage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust"
+                  className="h-12 rounded-lg border-border bg-card text-base font-medium text-trust"
                   onClick={startScan}
                 >
                   <ImagePlus className="h-5 w-5" />
@@ -141,7 +141,7 @@ function NewExpensePage() {
         {step === "scanning" ? (
           <section className="rounded-3xl border border-border bg-card px-6 py-16 text-center shadow-card">
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-primary" />
-            <p className="mt-4 text-lg font-extrabold text-trust">영수증을 읽는 중…</p>
+            <p className="mt-4 text-lg font-bold text-trust">영수증을 읽는 중…</p>
             <p className="mt-1 text-sm text-muted-foreground">금액과 통화를 확인하고 있어요.</p>
           </section>
         ) : null}
@@ -356,7 +356,7 @@ function NewExpensePage() {
               </p>
             </div>
             <Button
-              className="h-13 rounded-full bg-sunset px-6 text-base font-bold shadow-float hover:opacity-95"
+              className="h-12 rounded-lg px-6 text-base font-medium"
               onClick={() => {
                 toast.success("지출이 등록되었어요", { description: merchant });
                 navigate({ to: "/trips/$tripId", params: { tripId } });

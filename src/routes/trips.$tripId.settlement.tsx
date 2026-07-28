@@ -104,33 +104,33 @@ function SettlementPage() {
 
   return (
     <div className="min-h-screen bg-background pb-16">
-      <header className="bg-trust-gradient px-4 pb-8 pt-4 text-trust-foreground">
+      <header className="border-b border-border/70 bg-card px-4 pb-8 pt-4">
         <div className="mx-auto max-w-xl">
           <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2">
             <Link
               to="/trips/$tripId"
               params={{ tripId }}
               aria-label="뒤로"
-              className="rounded-full p-1.5 hover:bg-card/10"
+              className="rounded-full p-1.5 hover:bg-muted"
             >
-              <ArrowLeft className="h-5 w-5" />
+              <ArrowLeft className="h-5 w-5 text-trust" />
             </Link>
-            <span className="truncate text-sm font-semibold opacity-80">{trip.name}</span>
+            <span className="truncate text-sm font-semibold text-muted-foreground">{trip.name}</span>
           </div>
 
-          <span className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-card/15 px-3 py-1 text-xs font-bold">
+          <span className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success-soft px-3 py-1 text-xs font-bold text-success">
             <CheckCircle2 className="h-3.5 w-3.5" />
             여행 종료 · 정산 완료
           </span>
-          <h1 className="mt-3 text-3xl font-extrabold text-trust-foreground">정산 결과</h1>
-          <p className="mt-1 text-sm opacity-80">
+          <h1 className="mt-3 text-2xl font-semibold text-trust">정산 결과</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             {formatDateRange(trip.startDate, trip.endDate)} · {trip.members.length}명
           </p>
 
-          <div className="mt-5 rounded-2xl bg-card/12 p-4">
-            <p className="text-[11px] font-semibold opacity-75">여행 총 지출</p>
-            <p className="amount mt-0.5 text-4xl">{formatCurrency(totalSpend(trip), trip.currency)}</p>
-            <p className="mt-1 text-xs opacity-75">
+          <div className="mt-5 rounded-lg border border-border p-4">
+            <p className="text-[11px] font-semibold text-muted-foreground">여행 총 지출</p>
+            <p className="amount mt-0.5 text-4xl text-trust">{formatCurrency(totalSpend(trip), trip.currency)}</p>
+            <p className="mt-1 text-xs text-muted-foreground">
               1인 평균 {formatCurrency(Math.round(totalSpend(trip) / trip.members.length), trip.currency)}
             </p>
           </div>
@@ -233,7 +233,7 @@ function SettlementPage() {
 
         <div className="mt-8 grid gap-2">
           <Button
-            className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
+            className="h-12 rounded-lg text-base font-medium"
             onClick={() => {
               trackEvent("share_click");
               toast.success("정산 결과를 공유했어요");
@@ -244,7 +244,7 @@ function SettlementPage() {
           </Button>
           <Button
             variant="outline"
-            className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
+            className="h-12 rounded-lg border-border bg-card text-base font-medium text-trust hover:bg-muted"
             onClick={() => toast.success("모든 송금을 완료 처리했어요")}
           >
             <TicketCheck className="h-5 w-5" />
@@ -411,14 +411,14 @@ function AccountForm({
         <button
           type="button"
           onClick={submit}
-          className="h-9 flex-1 rounded-full bg-sunset text-xs font-bold text-primary-foreground active:scale-95"
+          className="h-9 flex-1 rounded-lg bg-primary text-xs font-bold text-primary-foreground hover:bg-primary-deep active:scale-95"
         >
           저장
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="h-9 flex-1 rounded-full border border-border bg-card text-xs font-bold text-muted-foreground active:scale-95"
+          className="h-9 flex-1 rounded-lg border border-border bg-card text-xs font-bold text-muted-foreground active:scale-95"
         >
           취소
         </button>

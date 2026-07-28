@@ -77,7 +77,7 @@ function TripsPage() {
 
       <div className="mt-5 grid grid-cols-2 gap-2.5">
         <Button
-          className="h-13 rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
+          className="h-12 rounded-lg text-base font-medium"
           onClick={() => toast.success("새 여행 만들기", { description: "데모 화면입니다." })}
         >
           <Plus className="h-5 w-5" strokeWidth={2.6} />
@@ -85,7 +85,7 @@ function TripsPage() {
         </Button>
         <Button
           variant="outline"
-          className="h-13 rounded-full border-trust/25 bg-card text-base font-bold text-trust hover:bg-trust-soft"
+          className="h-12 rounded-lg border-border bg-card text-base font-medium text-trust hover:bg-muted"
           onClick={() => setJoinOpen((v) => !v)}
         >
           <Ticket className="h-5 w-5" strokeWidth={2.4} />

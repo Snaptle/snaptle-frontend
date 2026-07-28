@@ -31,7 +31,7 @@ export function ConsentBanner() {
             <ShieldCheck className="h-5 w-5" strokeWidth={2.2} />
           </span>
           <div className="min-w-0">
-            <p className="text-sm font-extrabold text-trust">더 나은 서비스를 위해 사용자 데이터를 수집하고 있습니다</p>
+            <p className="text-sm font-bold text-trust">더 나은 서비스를 위해 사용자 데이터를 수집하고 있습니다</p>
             <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">
               화면 이용 방식(클릭, 이동 경로 등)을 분석해 서비스를 개선하는 데만 사용해요. 결제·계좌 정보는
               수집하지 않습니다. 동의하시겠습니까?

@@ -35,7 +35,7 @@ export function SnaptleLogo({ className }: { className?: string }) {
       <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-sunset text-primary-foreground shadow-float">
         <TicketMark className="h-7 w-7 text-primary-foreground" />
       </span>
-      <span className="font-display text-xl font-extrabold tracking-tight text-trust">Snaptle</span>
+      <span className="font-display text-xl font-bold tracking-tight text-trust">Snaptle</span>
     </span>
   );
 }

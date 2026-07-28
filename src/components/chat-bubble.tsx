@@ -59,7 +59,7 @@ export function ChatBubble() {
           <div className="ticket-notch relative flex max-h-[70%] flex-col overflow-hidden rounded-t-[1.75rem] border-t border-border bg-card shadow-float">
             <div className="flex items-center justify-between border-b border-border/70 bg-trust px-4 py-3.5 text-trust-foreground">
               <div>
-                <p className="text-sm font-extrabold">Snaptle 문의하기</p>
+                <p className="text-sm font-bold">Snaptle 문의하기</p>
                 <p className="text-[11px] opacity-80">보통 몇 분 안에 답변드려요</p>
               </div>
               <button

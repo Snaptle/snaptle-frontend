@@ -56,37 +56,37 @@ function TripDetailPage() {
 
   return (
     <div className="min-h-screen bg-background pb-36">
-      <header className="bg-trust-gradient px-4 pb-6 pt-4 text-trust-foreground">
+      <header className="border-b border-border/70 bg-card px-4 pb-6 pt-4">
         <div className="mx-auto max-w-xl">
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
-            <Link to="/" aria-label="뒤로" className="rounded-full p-1.5 hover:bg-card/10">
-              <ArrowLeft className="h-5 w-5" />
+            <Link to="/" aria-label="뒤로" className="rounded-full p-1.5 hover:bg-muted">
+              <ArrowLeft className="h-5 w-5 text-trust" />
             </Link>
-            <span className="truncate text-sm font-semibold opacity-80">{trip.destination}</span>
+            <span className="truncate text-sm font-semibold text-muted-foreground">{trip.destination}</span>
             <AvatarStack members={trip.members} />
           </div>
 
-          <h1 className="mt-3 text-2xl font-extrabold text-trust-foreground">{trip.name}</h1>
-          <p className="mt-1 text-sm opacity-80">
+          <h1 className="mt-3 text-2xl font-semibold text-trust">{trip.name}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             {formatDateRange(trip.startDate, trip.endDate)} · 기본통화 {trip.currency}
           </p>
 
           <button
             onClick={() => toast.success("초대코드를 복사했어요", { description: trip.inviteCode })}
-            className="mt-3 inline-flex items-center gap-2 rounded-full bg-card/15 px-3 py-1.5 text-xs font-bold tracking-widest"
+            className="mt-3 inline-flex items-center gap-2 rounded-full border border-border bg-muted px-3 py-1.5 text-xs font-bold tracking-widest text-trust"
           >
             <Copy className="h-3.5 w-3.5" />
             {trip.inviteCode}
           </button>
 
           <div className="mt-5 grid grid-cols-2 gap-3">
-            <div className="rounded-2xl bg-card/12 p-3">
-              <p className="text-[11px] font-semibold opacity-75">여행 총 지출</p>
-              <p className="amount mt-0.5 text-2xl">{formatCurrency(totalSpend(trip), trip.currency)}</p>
+            <div className="rounded-lg border border-border p-3">
+              <p className="text-[11px] font-semibold text-muted-foreground">여행 총 지출</p>
+              <p className="amount mt-0.5 text-2xl text-trust">{formatCurrency(totalSpend(trip), trip.currency)}</p>
             </div>
-            <div className="rounded-2xl bg-card/12 p-3">
-              <p className="text-[11px] font-semibold opacity-75">내 잔액</p>
-              <p className="amount mt-0.5 text-2xl">
+            <div className="rounded-lg border border-border p-3">
+              <p className="text-[11px] font-semibold text-muted-foreground">내 잔액</p>
+              <p className="amount mt-0.5 text-2xl text-trust">
                 {myBalance && myBalance.net >= 0 ? "+" : "−"}
                 {formatCurrency(Math.abs(myBalance?.net ?? 0), trip.currency)}
               </p>
@@ -94,7 +94,7 @@ function TripDetailPage() {
           </div>
 
           <Button
-            className="mt-4 h-13 w-full rounded-full bg-card text-base font-bold text-trust hover:bg-card/90"
+            className="mt-4 h-12 w-full rounded-lg text-base font-medium"
             onClick={() => navigate({ to: "/trips/$tripId/settlement", params: { tripId } })}
           >
             <Wallet className="h-5 w-5" />

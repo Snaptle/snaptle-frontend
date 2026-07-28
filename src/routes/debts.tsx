@@ -42,14 +42,14 @@ function DebtsPage() {
       <PageTitle title="밀린 정산" subtitle="내기·대신 낸 돈처럼 둘 사이에 남은 금액만 가볍게" />
 
       <div className="mt-4 grid grid-cols-2 gap-3">
-        <div className="rounded-3xl bg-trust-gradient p-5 text-trust-foreground shadow-lift tilt-a">
-          <p className="pill bg-card/15 text-trust-foreground">
+        <div className="rounded-2xl border border-trust/15 bg-trust-soft p-5">
+          <p className="pill bg-card text-trust">
             <ArrowDownLeft className="h-3.5 w-3.5" />
             받을 돈
           </p>
-          <p className="amount mt-1 text-2xl">{formatCurrency(receiveTotal)}</p>
+          <p className="amount mt-1 text-2xl text-trust">{formatCurrency(receiveTotal)}</p>
         </div>
-        <div className="rounded-3xl border border-border/70 bg-card p-5 shadow-card tilt-b">
+        <div className="rounded-2xl border border-border/70 bg-card p-5 shadow-card">
           <p className="pill bg-muted text-muted-foreground">
             <ArrowUpRight className="h-3.5 w-3.5" />
             줄 돈
@@ -59,7 +59,7 @@ function DebtsPage() {
       </div>
 
       <Button
-        className="mt-4 h-13 w-full rounded-full bg-sunset text-base font-bold shadow-float hover:opacity-95"
+        className="mt-4 h-12 w-full rounded-lg text-base font-medium"
         onClick={() => setFormOpen((v) => !v)}
       >
         <Plus className="h-5 w-5" strokeWidth={2.6} />
@@ -68,7 +68,7 @@ function DebtsPage() {
 
       {formOpen ? (
         <form
-          className="mt-4 space-y-2.5 rounded-3xl border border-dashed border-primary/40 bg-primary-soft/60 p-5 shadow-card"
+          className="mt-4 space-y-2.5 rounded-2xl border border-dashed border-primary/40 bg-primary-soft/60 p-5 shadow-card"
           onSubmit={(e) => {
             e.preventDefault();
             setFormOpen(false);
